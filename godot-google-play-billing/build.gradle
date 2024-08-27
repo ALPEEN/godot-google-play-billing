@@ -3,28 +3,30 @@ plugins {
 }
 
 ext.pluginVersionCode = 5
-ext.pluginVersionName = "1.2.0"
+ext.pluginVersionName = "1.3.0"
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    compileSdk 35
+    buildToolsVersion '35.0.0'
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 31
+        minSdk 24
+        targetSdkVersion 35
         versionCode pluginVersionCode
         versionName pluginVersionName
     }
 
-    libraryVariants.all { variant ->
+    libraryVariants.configureEach { variant ->
         variant.outputs.all { output ->
             output.outputFileName = "GodotGooglePlayBilling.$pluginVersionName.${variant.name}.aar"
         }
     }
+    namespace 'org.godotengine.godot.plugin.googleplaybilling'
 }
 
 dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation 'com.android.billingclient:billing:7.0.0'
+    implementation group: 'org.godotengine', name: 'godot', version: '3.5.2.stable'
     compileOnly fileTree(dir: 'libs', include: ['godot-lib*.aar'])
 }
